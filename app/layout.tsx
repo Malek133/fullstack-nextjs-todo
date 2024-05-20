@@ -25,7 +25,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ModeToggle />
+            <main className="flex justify-end mx-10 my-3"><ModeToggle /></main>
             {children}
           </ThemeProvider>
         </body>
