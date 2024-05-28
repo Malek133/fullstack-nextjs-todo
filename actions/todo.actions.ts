@@ -5,15 +5,16 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
-export const getTodoAction = async() =>{
+export const getTodoAction = async () =>{
    return  await prisma.todo.findMany()
      
 }
-export const creatTodoAction = async ({title,body}:TodoFormValues) =>{
+export const creatTodoAction = async ({title,body,completed}:TodoFormValues) =>{
     await prisma.todo.create({
         data:{
             title,
-            body
+            body,
+            completed
         },
     })
 }

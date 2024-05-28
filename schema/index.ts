@@ -15,6 +15,7 @@ export const todoFormSchema = z.object({
       .max(100, {
         message: "Descreption must not be longer than 100 characters.",
       }).optional(),
+      completed:z.boolean()
     
   })
 

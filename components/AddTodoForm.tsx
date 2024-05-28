@@ -7,6 +7,7 @@ import {
   DialogHeader,DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 
 import {Form, FormControl, FormDescription,
    FormField,FormItem, FormLabel,
@@ -18,11 +19,13 @@ import { TodoFormValues, todoFormSchema } from '@/schema';
 import { creatTodoAction } from '@/actions/todo.actions';
 
 
+
 const AddTodoForm = () => {
 
     const defaultValues: Partial<TodoFormValues> = {
-        title: "I own a computer.",
-        body:'default body',
+        title: "",
+        body:'',
+        completed:false
       }
 
     const form = useForm<TodoFormValues>({
@@ -33,7 +36,7 @@ const AddTodoForm = () => {
     
      const onSubmit = async (data:TodoFormValues) =>{
         await creatTodoAction({
-            title:data.title,body:data.title
+            title:data.title,body:data.title,completed:data.completed
         })
      };
 
@@ -102,6 +105,23 @@ const AddTodoForm = () => {
             </FormItem>
           )}
         />
+     
+     <FormField
+  control={form.control}
+  name="completed"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Completed</FormLabel>
+      <FormControl>
+        <Checkbox
+          {...field} checked={field.value} onCheckedChange={field.onChange}
+           value={field.value ? "true" : "false"}
+        />
+      </FormControl>
+    </FormItem>
+  )}
+/>
+
 
           <DialogFooter>
           <Button type="submit">Save changes</Button>
