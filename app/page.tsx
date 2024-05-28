@@ -1,8 +1,8 @@
 
   import { getTodoAction } from '@/actions/todo.actions';
  import AddTodoForm from '@/components/AddTodoForm';
+import TodoTable from '@/components/TodoTable';
 
-// import { TodoFormValues, todoFormSchema } from '@/schema';
 
 export default async function Home() {
 
@@ -24,8 +24,9 @@ export default async function Home() {
           className='text-xl font-medium'>
         {i+1}-{todo.title}</li>))}
         </ul>
-      
     </div> 
+
+    <TodoTable />
 
     </main>
     
