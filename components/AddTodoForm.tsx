@@ -53,9 +53,10 @@ const AddTodoForm = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Creat Todo</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. 
+            Click save when you're done.
           </DialogDescription>
         </DialogHeader>
         <div className=" py-4">
@@ -110,14 +111,15 @@ const AddTodoForm = () => {
   control={form.control}
   name="completed"
   render={({ field }) => (
-    <FormItem>
-      <FormLabel>Completed</FormLabel>
+    <FormItem className='flex justify-start items-center space-x-3'>
+      
       <FormControl>
         <Checkbox
           {...field} checked={field.value} onCheckedChange={field.onChange}
            value={field.value ? "true" : "false"}
         />
       </FormControl>
+      <FormLabel>Completed</FormLabel>
     </FormItem>
   )}
 />
