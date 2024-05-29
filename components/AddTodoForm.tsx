@@ -17,10 +17,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TodoFormValues, todoFormSchema } from '@/schema';
 import { creatTodoAction } from '@/actions/todo.actions';
+import { useState } from 'react';
+import Spinner from './Spinner';
 
 
 
 const AddTodoForm = () => {
+
+  const [loading,setLoading]=useState(false);
+  const [open,setOpen]=useState(false)
 
     const defaultValues: Partial<TodoFormValues> = {
         title: "",
@@ -34,17 +39,18 @@ const AddTodoForm = () => {
         mode: "onChange",
       })
     
-     const onSubmit = async (data:TodoFormValues) =>{
-        await creatTodoAction({
-            title:data.title,body:data.title,completed:data.completed
-        })
+     const onSubmit = async ({title,body,completed}:TodoFormValues) =>{
+      setLoading(true)
+        await creatTodoAction({title,body,completed})
+        setLoading(false)
+        setOpen(false)
      };
 
 
 
   return (
     <div>
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
       <Button>
         <Diff />
@@ -126,7 +132,9 @@ const AddTodoForm = () => {
 
 
           <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" disabled={loading}>
+          {loading ? <Spinner /> : "Save" }
+          </Button>
             </DialogFooter>
 
           </form>
