@@ -1,19 +1,21 @@
 'use client'
 import { Button } from './ui/button'
-import { Pencil,Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { deleteTodoAction } from "@/actions/todo.actions";
 import { useState } from "react";
 import Spinner from "./Spinner";
+import EditTodoForm from './EditTodoForm';
+import { ITodo } from '@/interface';
 
-const TodoTableActions = ({id}:{id:string}) => {
+const TodoTableActions = ({todo}:{todo:ITodo}) => {
     const [loading,setLoading]=useState(false)
   return (
     <>
-          <Button ><Pencil size={16}/></Button>
+           <EditTodoForm todo={todo} />
           
               <Button  onClick={ async () =>{
                     setLoading(true)
-                    await deleteTodoAction({id})
+                    await deleteTodoAction({id:todo.id})
                     setLoading(false)
                 } 
                 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { Diff } from 'lucide-react';
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
@@ -16,21 +16,22 @@ import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TodoFormValues, todoFormSchema } from '@/schema';
-import { creatTodoAction } from '@/actions/todo.actions';
 import { useState } from 'react';
 import Spinner from './Spinner';
+import { editTodoAction } from '@/actions/todo.actions';
+import { Pencil } from 'lucide-react';
+import { ITodo } from "@/interface";
 
 
-
-const AddTodoForm = () => {
+const EditTodoForm = ({todo}:{todo:ITodo}) => {
 
   const [loading,setLoading]=useState(false);
   const [open,setOpen]=useState(false)
 
     const defaultValues: Partial<TodoFormValues> = {
-        title: "",
-        body:'',
-        completed:false
+        title:todo.title,
+        body:todo.body as string,
+        completed:todo.completed
       }
 
     const form = useForm<TodoFormValues>({
@@ -39,28 +40,29 @@ const AddTodoForm = () => {
         mode: "onChange",
       })
     
-     const onSubmit = async ({title,body,completed}:TodoFormValues) =>{
+     const onSubmit = async (data:TodoFormValues) =>{
       setLoading(true)
-        await creatTodoAction({title,body,completed})
+        await editTodoAction({id:todo.id,title:data.title,
+          body:data.body as string,completed:data.completed})
         setLoading(false)
         setOpen(false);
        
      };
 
 
-
   return (
     <div>
           <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
+
       <Button>
-        <Diff />
-        New Todo
+        <Pencil size={16}/>
         </Button>
+
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Creat Todo</DialogTitle>
+          <DialogTitle>Edit This Todo</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. 
             Click save when you're done.
@@ -137,10 +139,10 @@ const AddTodoForm = () => {
           {loading ? (
             <>
              <Spinner />
-              <span className='mx-2'>save</span>
+              <span className='mx-2'>Edit</span>
             </>
             ) : (
-               "Save"
+               "Edit"
              )}
 
           </Button>
@@ -156,4 +158,4 @@ const AddTodoForm = () => {
   )
 }
 
-export default AddTodoForm
+export default EditTodoForm

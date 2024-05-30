@@ -1,17 +1,11 @@
 
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
+    Table,TableBody,TableCaption,TableCell,TableFooter,
+    TableHead,TableHeader,TableRow,
   } from "@/components/ui/table"
 
 import { ITodo } from "@/interface";
-import { Badge } from "@/components/ui/badge"
+import { X ,Check } from 'lucide-react';
 
 import TodoTableActions from "./TodoTableActions";
   
@@ -37,11 +31,11 @@ import TodoTableActions from "./TodoTableActions";
               <TableCell className="font-medium">{i+1}</TableCell>
               <TableCell>{todo.id}</TableCell>
               <TableCell>{todo.title}</TableCell>
-              <TableCell>{todo.completed ? <Badge>Completed</Badge> : <Badge variant={'secondary'}>Uncompleted</Badge>}</TableCell>
+              <TableCell>{todo.completed ? <Check /> : <X />}</TableCell>
               <TableCell className="text-right">
 
               <div className="flex gap-3 justify-end items-center">
-              <TodoTableActions id={todo.id} />
+              <TodoTableActions todo={todo} />
                 </div>
                 
               </TableCell>
