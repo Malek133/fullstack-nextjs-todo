@@ -19,8 +19,8 @@ import TodoTableActions from "./TodoTableActions";
         <TableHeader>
           <TableRow>
             <TableHead >N:</TableHead> 
-            <TableHead>Id</TableHead>
             <TableHead>Title</TableHead>
+            <TableHead>Descreption</TableHead>
             <TableHead>Completed</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
@@ -29,8 +29,8 @@ import TodoTableActions from "./TodoTableActions";
           {todos.map((todo,i) => (
             <TableRow key={todo.id}>
               <TableCell className="font-medium">{i+1}</TableCell>
-              <TableCell>{todo.id}</TableCell>
               <TableCell>{todo.title}</TableCell>
+              <TableCell>{todo.body}</TableCell>
               <TableCell>{todo.completed ? <Check /> : <X />}</TableCell>
               <TableCell className="text-right">
 
